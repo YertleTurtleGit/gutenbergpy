@@ -40,17 +40,12 @@ class RdfParser:
         print("BLA!")
 
         for idx, dir in enumerate(dirs):
+            if dir == "test":
+                continue
+
             processing_str = "Processing progress: %d / %d" % (idx,total)
             Utils.update_progress_bar(processing_str,idx,total)
             file_path = path.join(GutenbergCacheSettings.CACHE_RDF_UNPACK_DIRECTORY,dir,'pg%s.rdf'%(dir))
-
-            if str(file_path).endswith("pgtest.rdf"):
-                print("TEST!")
-                continue
-
-            if not file_path.is_file():
-                print(f"File path does not exist! ({file_path})")
-                continue
             
             doc = etree.parse(file_path, etree.ETCompatXMLParser())
 
