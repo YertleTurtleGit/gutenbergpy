@@ -90,7 +90,7 @@ class SQLiteCache(Cache):
             self.__insertLinks(list(map(lambda x: (x,book_id) , book.authors_id)),'book_authors','authorid','bookid')
             self.__insertLinks(list(map(lambda x: (x,book_id) , book.subjects_id)),'book_subjects','subjectid','bookid')
 
-            self.cursor.execute("INSERT OR IGNORE INTO books(publisherid,dateissued,rightsid,numdownloads,languageid,bookshelveid,gutenbergbookid,typeid,author_birthdate,author_deathdate) "
+            self.cursor.execute("INSERT OR IGNORE INTO books(publisherid,dateissued,rightsid,numdownloads,languageid,bookshelveid,gutenbergbookid,typeid,authorbirthdate,authordeathdate) "
                                 "VALUES (?,?,?,?,?,?,?,?,?,?)" , (book.publisher_id, book.date_issued, book.rights_id,
                                                 book.num_downloads,book.language_id,book.bookshelf_id,book.gutenberg_book_id,book.type_id,book.author_birthdate,book.author_deathdate))
 
