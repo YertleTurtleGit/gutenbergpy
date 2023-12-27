@@ -49,7 +49,9 @@ CREATE TABLE "books" (
 	`languageid` INTEGER,
 	`bookshelveid` INTEGER,
 	`gutenbergbookid` INTEGER,
-	`typeid` INTEGER
+	`typeid` INTEGER,
+	`authorbirthdate` INTEGER,
+	`authordeathdate` INTEGER
 );
 CREATE TABLE `book_subjects` (
 	`bookid`	INTEGER,
