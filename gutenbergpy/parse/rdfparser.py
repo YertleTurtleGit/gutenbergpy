@@ -42,7 +42,11 @@ class RdfParser:
             Utils.update_progress_bar(processing_str,idx,total)
             file_path = path.join(GutenbergCacheSettings.CACHE_RDF_UNPACK_DIRECTORY,dir,'pg%s.rdf'%(dir))
 
-            if not file_path.exists():
+            if file_path.name == "pgtest.rdf":
+                print("TEST!")
+                continue
+
+            if not file_path.is_file():
                 print(f"File path does not exist! ({file_path})")
                 continue
             
