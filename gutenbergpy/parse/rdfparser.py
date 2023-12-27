@@ -37,12 +37,14 @@ class RdfParser:
         dirs  =  [d for d in listdir(GutenbergCacheSettings.CACHE_RDF_UNPACK_DIRECTORY) if not d.startswith("DELETE")]
         total = len(dirs)
 
+        print("BLA!")
+
         for idx, dir in enumerate(dirs):
             processing_str = "Processing progress: %d / %d" % (idx,total)
             Utils.update_progress_bar(processing_str,idx,total)
             file_path = path.join(GutenbergCacheSettings.CACHE_RDF_UNPACK_DIRECTORY,dir,'pg%s.rdf'%(dir))
 
-            if file_path.endswith("pgtest.rdf"):
+            if str(file_path).endswith("pgtest.rdf"):
                 print("TEST!")
                 continue
 
