@@ -32,8 +32,6 @@ class RdfParser:
         result.field_sets[Fields.FILES]         = ParseItemFiles(xpath =['//dcterms:hasFormat'])
         result.field_sets[Fields.PUBLISHER]     = ParseItem(xpath =['//dcterms:publisher/text()'])
         result.field_sets[Fields.RIGHTS]        = ParseItem(xpath =['//dcterms:rights/text()'])
-        result.field_sets[Fields.AUTHOR_BIRTHDATE]  = ParseItem(xpath =['//dcterms:creator/pgterms:agent/pgterms:birthdate/text()'])
-        result.field_sets[Fields.AUTHOR_DEATHDATE]  = ParseItem(xpath =['//dcterms:creator/pgterms:agent/pgterms:deathdate/text()'])
 
         dirs  =  [d for d in listdir(GutenbergCacheSettings.CACHE_RDF_UNPACK_DIRECTORY) if not d.startswith("DELETE")]
         total = len(dirs)
@@ -59,6 +57,8 @@ class RdfParser:
 
             date_issued_x   = doc.xpath('//dcterms:issued/text()', namespaces=GutenbergCacheSettings.NS)
             num_downloads_x = doc.xpath('//pgterms:downloads/text()',namespaces=GutenbergCacheSettings.NS)
+            author_birthdate_x   = doc.xpath('//dcterms:creator/pgterms:agent/pgterms:birthdate/text()', namespaces=GutenbergCacheSettings.NS)
+            author_deathdate_x = doc.xpath('//dcterms:creator/pgterms:agent/pgterms:deathdate/text()',namespaces=GutenbergCacheSettings.NS)
 
             date_issued       = '1000-10-10' if not date_issued_x or date_issued_x[0] =='None' else str(date_issued_x[0])
             num_downloads     =  -1 if not num_downloads_x else int(num_downloads_x[0])
@@ -67,8 +67,8 @@ class RdfParser:
             language_id       =  -1 if not res[Fields.LANGUAGE] else res[Fields.LANGUAGE][0]
             bookshelf_id      =  -1 if not res[Fields.BOOKSHELF] else res[Fields.BOOKSHELF][0]
             type_id           =  -1 if not res[Fields.TYPE]    else  res[Fields.TYPE][0]
-            author_birthdate  =  -1 if not res[Fields.AUTHOR_BIRTHDATE] else res[Fields.AUTHOR_BIRTHDATE][0]
-            author_deathdate  =  -1 if not res[Fields.AUTHOR_DEATHDATE] else res[Fields.AUTHOR_DEATHDATE][0]
+            author_birthdate  =  -1 if not author_birthdate_x or author_birthdate_x[0] =='None' else int(author_birthdate_x[0])
+            author_deathdate  =  -1 if not author_deathdate_x or author_deathdate_x[0] =='None' else int(author_deathdate_x[0])
 
             newbook = Book(publisher_id, rights_id, language_id, bookshelf_id,
                            gutenberg_book_id, date_issued, num_downloads, res[Fields.TITLE],
