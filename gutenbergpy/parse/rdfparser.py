@@ -41,7 +41,12 @@ class RdfParser:
             processing_str = "Processing progress: %d / %d" % (idx,total)
             Utils.update_progress_bar(processing_str,idx,total)
             file_path = path.join(GutenbergCacheSettings.CACHE_RDF_UNPACK_DIRECTORY,dir,'pg%s.rdf'%(dir))
-            doc = etree.parse(file_path,etree.ETCompatXMLParser())
+
+            if not file_path.exists():
+                print(f"File path does not exist! ({file_path})")
+                continue
+            
+            doc = etree.parse(file_path, etree.ETCompatXMLParser())
 
             res = Fields.FIELD_COUNT * [-1]
             for idx_field, pt in enumerate(result.field_sets):
