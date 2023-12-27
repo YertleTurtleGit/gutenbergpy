@@ -3,8 +3,8 @@ BEGIN TRANSACTION;
 CREATE INDEX `books_dateissued_idx` ON `books` (`dateissued` ASC);
 CREATE INDEX `books_numdownloads_idx` ON `books` (`numdownloads` ASC);
 CREATE INDEX `gutenbergbookid_idx` ON `books` (`gutenbergbookid` ASC);
-CREATE INDEX `authors_birthdate_idx` ON `books` (`authorbirthdate` ASC);
-CREATE INDEX `authors_deathdate_idx` ON `books` (`authordeathdate` ASC);
+CREATE INDEX `authors_authorbirthdate_idx` ON `books` (`authorbirthdate` ASC);
+CREATE INDEX `authors_authordeathdate_idx` ON `books` (`authordeathdate` ASC);
 
 CREATE INDEX `authors_name_idx` ON `authors` (`name` ASC);
 
