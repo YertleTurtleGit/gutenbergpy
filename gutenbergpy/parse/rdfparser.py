@@ -23,16 +23,17 @@ class RdfParser:
         result = RDFParseResults()
 
         result.field_sets = Fields.FIELD_COUNT * [None]
-        result.field_sets[Fields.TITLE]     = ParseItemTitles(xpath=['//dcterms:title/text()','//dcterms:alternative/text()'])
-        result.field_sets[Fields.SUBJECT]   = ParseItem(xpath =['//dcterms:subject/rdf:Description/rdf:value/text()'])
-        result.field_sets[Fields.TYPE]      = ParseItem(xpath =['//dcterms:type/rdf:Description/rdf:value/text()'])
-        result.field_sets[Fields.LANGUAGE]  = ParseItem(xpath =['//dcterms:language/rdf:Description/rdf:value/text()'])
-        result.field_sets[Fields.AUTHOR]    = ParseItem(xpath =['//dcterms:creator/pgterms:agent/pgterms:alias/text()','//dcterms:creator/pgterms:agent/pgterms:name/text()'])
-        result.field_sets[Fields.BOOKSHELF] = ParseItem(xpath =['//pgterms:bookshelf/rdf:Description/rdf:value/text()'])
-        result.field_sets[Fields.FILES]     = ParseItemFiles(xpath =['//dcterms:hasFormat'])
-        result.field_sets[Fields.PUBLISHER] = ParseItem(xpath =['//dcterms:publisher/text()'])
-        result.field_sets[Fields.RIGHTS]    = ParseItem( xpath =['//dcterms:rights/text()'])
-
+        result.field_sets[Fields.TITLE]         = ParseItemTitles(xpath=['//dcterms:title/text()','//dcterms:alternative/text()'])
+        result.field_sets[Fields.SUBJECT]       = ParseItem(xpath =['//dcterms:subject/rdf:Description/rdf:value/text()'])
+        result.field_sets[Fields.TYPE]          = ParseItem(xpath =['//dcterms:type/rdf:Description/rdf:value/text()'])
+        result.field_sets[Fields.LANGUAGE]      = ParseItem(xpath =['//dcterms:language/rdf:Description/rdf:value/text()'])
+        result.field_sets[Fields.AUTHOR]        = ParseItem(xpath =['//dcterms:creator/pgterms:agent/pgterms:alias/text()','//dcterms:creator/pgterms:agent/pgterms:name/text()'])
+        result.field_sets[Fields.BOOKSHELF]     = ParseItem(xpath =['//pgterms:bookshelf/rdf:Description/rdf:value/text()'])
+        result.field_sets[Fields.FILES]         = ParseItemFiles(xpath =['//dcterms:hasFormat'])
+        result.field_sets[Fields.PUBLISHER]     = ParseItem(xpath =['//dcterms:publisher/text()'])
+        result.field_sets[Fields.RIGHTS]        = ParseItem(xpath =['//dcterms:rights/text()'])
+        result.field_sets[Fields.AUTHOR_BIRTHDATE]  = ParseItem(xpath =['//dcterms:creator/pgterms:agent/pgterms:birthdate/text()'])
+        result.field_sets[Fields.AUTHOR_DEATHDATE]  = ParseItem(xpath =['//dcterms:creator/pgterms:agent/pgterms:deathdate/text()'])
 
         dirs  =  [d for d in listdir(GutenbergCacheSettings.CACHE_RDF_UNPACK_DIRECTORY) if not d.startswith("DELETE")]
         total = len(dirs)
@@ -65,11 +66,14 @@ class RdfParser:
             rights_id         =  -1 if not res[Fields.RIGHTS]    else res[Fields.RIGHTS][0]
             language_id       =  -1 if not res[Fields.LANGUAGE] else res[Fields.LANGUAGE][0]
             bookshelf_id      =  -1 if not res[Fields.BOOKSHELF] else res[Fields.BOOKSHELF][0]
-            type_id           =  -1 if not  res[Fields.TYPE]    else  res[Fields.TYPE][0]
+            type_id           =  -1 if not res[Fields.TYPE]    else  res[Fields.TYPE][0]
+            author_birthdate  =  -1 if not res[Fields.AUTHOR_BIRTHDATE] else res[Fields.AUTHOR_BIRTHDATE][0]
+            author_deathdate  =  -1 if not res[Fields.AUTHOR_DEATHDATE] else res[Fields.AUTHOR_DEATHDATE][0]
 
             newbook = Book(publisher_id, rights_id, language_id, bookshelf_id,
                            gutenberg_book_id, date_issued, num_downloads, res[Fields.TITLE],
-                           res[Fields.SUBJECT], type_id, res[Fields.AUTHOR], res[Fields.FILES])
+                           res[Fields.SUBJECT], type_id, res[Fields.AUTHOR], res[Fields.FILES],
+                           author_birthdate, author_deathdate)
 
             result.books.append(newbook)
 

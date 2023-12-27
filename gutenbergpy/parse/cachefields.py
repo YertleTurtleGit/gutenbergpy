@@ -11,4 +11,6 @@ class Fields:  # Fields we will have in the caches db for a book entry
     FILES = 6
     PUBLISHER = 7
     RIGHTS = 8
-    FIELD_COUNT = 9
+    AUTHOR_BIRTHDATE = 9
+    AUTHOR_DEATHDATE = 10
+    FIELD_COUNT = 11
