@@ -5,7 +5,7 @@ class Book:
                  bookshelf_id, gutenberg_book_id,
                  date_issued, num_downloads,
                  titles_id, subjects_id, type_id, authors_id, files_id,
-                 author_birthdate, author_deathdate):
+                 authors_birthdate, author_deathdate):
         self.publisher_id = publisher_id
         self.rights_id = rights_id
         self.language_id = language_id
@@ -18,5 +18,5 @@ class Book:
         self.authors_id = authors_id
         self.files_id = files_id
         self.type_id = type_id
-        self.authors_birthdate = author_birthdate
+        self.authors_birthdate = authors_birthdate
         self.authors_deathdate = author_deathdate

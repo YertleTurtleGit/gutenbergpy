@@ -92,7 +92,7 @@ class SQLiteCache(Cache):
 
             self.cursor.execute("INSERT OR IGNORE INTO books(publisherid,dateissued,rightsid,numdownloads,languageid,bookshelveid,gutenbergbookid,typeid,authorbirthdate,authordeathdate) "
                                 "VALUES (?,?,?,?,?,?,?,?,?,?)" , (book.publisher_id, book.date_issued, book.rights_id,
-                                                book.num_downloads,book.language_id,book.bookshelf_id,book.gutenberg_book_id,book.type_id,book.author_birthdate,book.author_deathdate))
+                                                book.num_downloads,book.language_id,book.bookshelf_id,book.gutenberg_book_id,book.type_id,book.authors_birthdate,book.authors_deathdate))
 
         self.connection.commit()
 

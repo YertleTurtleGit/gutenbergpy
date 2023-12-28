@@ -26,7 +26,7 @@ class MongodbCache(Cache):
         book_dict['gutenberg_book_id'] = parseItem.gutenberg_book_id
         book_dict['date_issued']    = parseItem.date_issued
         book_dict['num_downloads']  = parseItem.num_downloads
-        book_dict['author_birthdate']    = parseItem.author_birthdate
+        book_dict['authors_birthdate']    = parseItem.authors_birthdate
         book_dict['author_deathdate']    = parseItem.author_deathdate
 
         book_dict['titles']         = map(lambda x: x[0] , fields[Fields.TITLE].set[[x - 1 for x in parseItem.titles_id]])  if parseItem.titles_id and parseItem.titles_id != -1 else ['None']
