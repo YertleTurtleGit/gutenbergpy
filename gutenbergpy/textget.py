@@ -135,7 +135,7 @@ def _format_download_uri(index):
         resp = conn.getresponse()
         if resp.status < 400:
             return uri
-    raise Exception()
+    raise FileNotFoundError()
 
 
 ##
